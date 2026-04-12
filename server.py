@@ -17,6 +17,8 @@ from src.logger import Logger
 
 # from src.test import Test
 
+SERVER_PORT = 5000
+
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
 socketio = SocketIO(app)
@@ -395,4 +397,4 @@ if __name__ == '__main__':
 				"options": options
 			})
 	else:
-		socketio.run(app, debug=True, host='0.0.0.0', port=5000)
+		socketio.run(app, debug=True, host='0.0.0.0', port=SERVER_PORT)
