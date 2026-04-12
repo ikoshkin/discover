@@ -30,3 +30,40 @@ If you'd like to tinker with the source code and test the latest build of Discov
 ### Notes
 
 - Discover is developed on Windows 10 using [Python 3.7.x](https://www.python.org/downloads/release/python-375/). It may work on other systems but has not been tested.
+
+---
+
+## Fork Notes — ikoshkin/discover
+
+This fork includes the following changes from the original 
+[colidescope/discover](https://github.com/colidescope/discover):
+
+### Port change: 5000 → 7878
+
+The default server port has been changed from `5000` to `7878`.
+
+Port 5000 is reserved by macOS Monterey and later for AirPlay Receiver,
+and port 5001 is also reserved as its HTTPS variant. Port 7878 has no
+known conflicts on Windows or macOS.
+
+To change the port, update these two lines:
+
+**server.py**
+```python
+SERVER_PORT = 7878
+```
+
+**start-discover.bat**
+```
+SET SERVER_PORT=7878
+```
+
+Note: if you change the port here, you must also update `SERVER_BASE`
+in `Helpers.cs` of the companion Grasshopper plugin repo
+[ikoshkin/discover-gh-r8](https://github.com/ikoshkin/discover-gh-r8)
+and rebuild the `.gha`.
+
+### Credits
+
+Original Discover server by [Colidescope](https://colidescope.com).  
+Fork maintained by [Ihor Koshkin](https://github.com/ikoshkin)

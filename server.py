@@ -17,7 +17,7 @@ from src.logger import Logger
 
 # from src.test import Test
 
-SERVER_PORT = 5000
+SERVER_PORT = 7878
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:4200"}})

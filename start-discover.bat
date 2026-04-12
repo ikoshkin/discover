@@ -9,6 +9,6 @@ IF EXIST ".\env" (
     CALL pip install -r requirements.txt
     ECHO Discover successfully installed
 )
-SET SERVER_PORT=5000
+SET SERVER_PORT=7878
 CALL explorer "http://localhost:%SERVER_PORT%/"
 CALL python server.py
