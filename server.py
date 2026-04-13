@@ -345,7 +345,11 @@ def get_design(job_path, des_id):
 	header = lines.pop(0).split("\t")
 
 	ids = [line.split("\t")[0] for line in lines]
-	des_loc = ids.index(des_id)
+	# Try exact ID match first, fall back to row index
+	if des_id in ids:
+		des_loc = ids.index(des_id)
+	else:
+		des_loc = int(des_id) % len(ids)
 
 	d = lines[des_loc].split("\t")
 
