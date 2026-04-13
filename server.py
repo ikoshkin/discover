@@ -298,7 +298,7 @@ def ss_done():
 	return do_next()
 
 
-@app.route('/api/v1.0/get_data/<string:job_path>', methods=['GET'])
+@app.route('/api/v1.0/get_data/<path:job_path>', methods=['GET'])
 def get_data(job_path):
 	data_path = Path(job_path) / "results.tsv"
 	if not data_path.exists():
