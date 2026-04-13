@@ -2,7 +2,7 @@
 import json
 import os
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from time import sleep
 import configparser
 
@@ -57,13 +57,13 @@ def serve_static(path):
 def connect():
 	data = request.json
 
-	gh_path = data["path"]
+	gh_path = data["path"].replace("\\", "/")
 	connection_id = data["id"]
 
-	file_path = gh_path.split("\\")
-	file_dir = "\\".join(file_path[:-1])
+	file_path = gh_path.replace("\\\\", "/").replace("\\", "/")
+	file_dir = "/".join(file_path.split("/")[:-1])
 	local_dir = Path(file_dir) / "discover"
-	file_name = file_path[-1].split(".")[0]
+	file_name = PurePosixPath(file_path).stem
 
 	client.connect(local_dir, file_name, connection_id)
 
