@@ -106,7 +106,7 @@ def start():
 	else:
 		run_local()
 
-	return jsonify({"status": "success", "job_id": str(job.get_path())})
+	return jsonify({"status": "success", "job_id": str(job.get_path()).replace("\\", "/")})
 
 
 def do_next():
@@ -323,7 +323,7 @@ def get_data(job_path):
 	return json.dumps({"status": "success", "load_images": image_path.exists(), "data": json_out})
 
 
-@app.route('/api/v1.0/get_design/<string:job_path>/<string:des_id>', methods=['GET'])
+@app.route('/api/v1.0/get_design/<path:job_path>/<string:des_id>', methods=['GET'])
 def get_design(job_path, des_id):
 
 	global job
@@ -361,13 +361,13 @@ def get_design(job_path, des_id):
 	return jsonify({"status": "success"})
 
 
-@app.route("/api/v1.0/image_folder_exists/<string:job_path>", methods=['GET'])
+@app.route("/api/v1.0/image_folder_exists/<path:job_path>", methods=['GET'])
 def image_folder_exists(job_path):
 	image_path = Path(job_path) / "images"
 	return jsonify(os.path.exists(image_path))
 
 
-@app.route("/api/v1.0/get_image/<string:job_path>/<string:des_id>", methods=['GET'])
+@app.route("/api/v1.0/get_image/<path:job_path>/<string:des_id>", methods=['GET'])
 def get_image(job_path, des_id):
 	image_path = Path(job_path) / "images"
 	return send_from_directory(image_path, des_id + '.png')
