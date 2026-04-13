@@ -300,6 +300,7 @@ def ss_done():
 
 @app.route('/api/v1.0/get_data/<path:job_path>', methods=['GET'])
 def get_data(job_path):
+	job_path = "/" + job_path if (not job_path.startswith("/") and not (len(job_path) > 1 and job_path[1] == ":")) else job_path
 	data_path = Path(job_path) / "results.tsv"
 	if not data_path.exists():
 		return jsonify({"status": "fail"})
@@ -325,6 +326,7 @@ def get_data(job_path):
 
 @app.route('/api/v1.0/get_design/<path:job_path>/<string:des_id>', methods=['GET'])
 def get_design(job_path, des_id):
+	job_path = "/" + job_path if (not job_path.startswith("/") and not (len(job_path) > 1 and job_path[1] == ":")) else job_path
 
 	global job
 	global fetch_design
@@ -363,12 +365,14 @@ def get_design(job_path, des_id):
 
 @app.route("/api/v1.0/image_folder_exists/<path:job_path>", methods=['GET'])
 def image_folder_exists(job_path):
+	job_path = "/" + job_path if (not job_path.startswith("/") and not (len(job_path) > 1 and job_path[1] == ":")) else job_path
 	image_path = Path(job_path) / "images"
 	return jsonify(os.path.exists(image_path))
 
 
 @app.route("/api/v1.0/get_image/<path:job_path>/<string:des_id>", methods=['GET'])
 def get_image(job_path, des_id):
+	job_path = "/" + job_path if (not job_path.startswith("/") and not (len(job_path) > 1 and job_path[1] == ":")) else job_path
 	image_path = Path(job_path) / "images"
 	return send_from_directory(image_path, des_id + '.png')
 
